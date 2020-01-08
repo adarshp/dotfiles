@@ -1,7 +1,9 @@
 #!/bin/bash
 
-dotfiles=".vimrc .bash_profile"
+# This script symlinks the dotfiles defined in the 'dotfiles' variable to the
+# home directory.
+
+dotfiles=".vimrc .bash_profile .bash_aliases"
 for f in $dotfiles; do 
-  echo $f
-  ln -sv $f ~/"${f}_symlink"
+  ln -sf `pwd`/$f ~/$f
 done
