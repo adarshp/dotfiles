@@ -1,4 +1,8 @@
-export PS1="\[\033[33;1m\]\w\[\033[32m\]\[\033[00m\] $ "
+parse_git_branch() {
+  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+
+export PS1="\[\033[33;1m\]\w\[\033[32m\]\$(parse_git_branch)\[\033[00m\] $ "
 
 # ~/.bashrc
 if [ -f ~/.bashrc ]; then . ~/.bashrc; fi
@@ -20,12 +24,18 @@ export LSCOLORS=GxFxCxDxBxegedabagaced
 
 # Eidos
 export EIDOS=~/github/clulab/eidos
-export JAVA_OPTS=-Xmx16g
+if [[ `hostname` == "qed.sista.arizona.edu" ]]; then
+  export JAVA_OPTS=-Xmx62g
+else
+  export JAVA_OPTS=-Xmx16g
+fi
+
 export EIDOSPATH=$EIDOS/target/scala-2.12/eidos-assembly-0.2.3-SNAPSHOT.jar
 
 
 export PATH=$HOME/ivilab/src/Make/scripts/:$PATH
 export KJB_SRC_PATH=$HOME/ivilab/src/
+export TEXINPUTS="$HOME/ivilab/doc/texinputs:"
 #export LD_LIBRARY_PATH=`$HOME/ivilab/src/Make/scripts/echo_ld_path`:$LD_LIBRARY_PATH
 #export KJB_WARN_LEVEL=0
 #export FORCE_STOP=1
@@ -38,56 +48,65 @@ export KJB_SRC_PATH=$HOME/ivilab/src/
 
 # MacPorts Installer addition on 2019-07-22_at_16:20:40: adding an appropriate PATH variable for use with MacPorts.
 export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+export MANPATH="/opt/local/share/man:$MANPATH"
 # Finished adapting your PATH environment variable for use with MacPorts.
 
-#export PATH="~/homebrew/bin:$PATH"
-
-function py37 () {
-  sudo port select --set python python37;
-  sudo port select --set python3 python37;
-  sudo port select --set pip pip37;
-  sudo port select --set pip3 pip37;
-}
-
-function py38 () {
-   sudo port select --set python python38;
-   sudo port select --set python3 python38;
-   sudo port select --set pip pip38;
-   sudo port select --set pip3 pip38;
-}
-
-function py27 () {
-   sudo port select --set python python27;
-   sudo port select --set pip pip27;
-}
-
-function set_gcc {
-  export CC=`which gcc`
-  export CXX=`which g++`
-}
-
-function set_mp_clang {
-  export CC=/opt/local/bin/clang-mp-8.0
-  export CXX=/opt/local/bin/clang++-mp-8.0
-}
-
-function set_apple_clang {
-  export CC=/usr/bin/clang
-  export CXX=/usr/bin/clang++
-}
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
 
 # Create a new Python virtual environment
-function create_new_venv() {
-  python -m venv ~/.venvs/$1 --system-site-packages
+activate_py2() {
+  port select --set python python27
+  port select --set python2 python27
+  port select --set pip pip27
+}
+
+# Usage example:
+#
+#     activate_py3 37
+#
+# will activate Python 3.7
+activate_py3() {
+  port select --set python python$1
+  port select --set python3 python$1
+  port select --set pip pip$1
+}
+
+create_new_venv() {
+  python -m venv ~/.venvs/$1
 }
 
 # Activate a Python virtual environment
-function activate() {
+activate() {
   source ~/.venvs/$1/bin/activate
 }
-#export ROOTSYS=/opt/local/libexec/root6
-#export PATH=$PATH:$ROOTSYS/bin
-#export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ROOTSYS/lib
-#export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:$ROOTSYS/lib
+
+purge_macports() {
+  sudo port -fp uninstall installed
+  dscl -p . -delete /Users/macports
+  dscl -p . -delete /Groups/macports
+  sudo rm -rf \
+    /opt/local \
+    /Applications/DarwinPorts \
+    /Applications/MacPorts \
+    /Library/LaunchDaemons/org.macports.* \
+    /Library/Receipts/DarwinPorts*.pkg \
+    /Library/Receipts/MacPorts*.pkg \
+    /Library/StartupItems/DarwinPortsStartup \
+    /Library/Tcl/darwinports1.0 \
+    /Library/Tcl/macports1.0 \
+    ~/.macports
+}
+
+install_macports() {
+  local version=2.6.2
+  curl -O https://distfiles.macports.org/MacPorts/MacPorts-$version.tar.bz2
+  tar xf MacPorts-$version.tar.bz2
+  pushd MacPorts-$version
+    ./configure
+    make -j
+    sudo make -j install
+  popd
+  rm -rf Macports-$version*
+  port selfupdate
+}
