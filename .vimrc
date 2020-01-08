@@ -1,114 +1,108 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
+" Download vim-plug if it isn't installed yet.
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'gmarik/Vundle.vim'
-Plugin 'godlygeek/tabular'
-Plugin 'plasticboy/vim-markdown'
-Plugin 'reedes/vim-pencil'
-Plugin 'junegunn/goyo.vim'
-Plugin 'junegunn/limelight.vim'
-Plugin 'reedes/vim-wheel'
-Plugin 'SirVer/Ultisnips'
-Plugin 'honza/vim-snippets'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
-Plugin 'tpope/vim-surround'
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
-call vundle#end()
-filetype plugin on
+call plug#begin('~/.vim/plugged')
+Plug 'godlygeek/tabular'
+Plug 'vim-python/python-syntax', { 'for': 'python' }
+Plug 'nvie/vim-flake8', { 'for': 'python' }
+Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
+Plug 'tell-k/vim-autoflake', { 'for': 'python' }
+Plug 'lervag/vimtex', { 'for': 'tex' }
+Plug 'junegunn/seoul256.vim'
+Plug 'altercation/vim-colors-solarized'
+Plug 'junegunn/Goyo.vim'
+Plug 'morhetz/gruvbox'
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-fugitive'
+Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
+Plug 'Townk/vim-autoclose'
+Plug 'sbdchd/neoformat'
+Plug 'ryanoasis/vim-devicons'
+Plug 'bfrg/vim-cpp-modern'
+Plug 'JuliaEditorSupport/julia-vim'
+call plug#end()
+
+
+syntax enable
+" set Vim-specific sequences for RGB colors
+set termguicolors
+" set Vim-specific sequences for RGB colors
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+
+set background=dark
+colorscheme seoul256
+
+"highlight Comment cterm=italic
+set number
+
 " Easier split navigations
-"nnoremap <C-J> <C-W><C-J>
+nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
-" Vimroom Toggle
-nnoremap <silent> <Leader>mz <Plug>VimroomToggle
-syntax enable
-set splitbelow
-set splitright
 
-" Set syntax highlighting for specific file types
-autocmd BufRead,BufNewFile *.md set filetype=markdown
-
-" Start vim-pencil automatically for certain filetypes
-augroup pencil
-  autocmd!
-  autocmd FileType markdown,mkd call pencil#init({'wrap':'soft'})
-augroup END
-let g:goyo_width=80
-" Start Goyo on markdown files
-au Filetype markdown Goyo 74
-
-" vim-pencil textwidth
-"let g:pencil#textwidth = 74
-
-" Enable spellchecking for Markdown
-"autocmd FileType markdown setlocal spell
-set tabstop=2
+" Better defaults
+set splitbelow splitright
+set wrap linebreak nolist
+set tabstop=4
 set shiftwidth=2
 set shiftround
 set expandtab
 set ai
+set textwidth=79
 
-" Display extra whitespace
-"set list listchars=tab:»·,trail:·,nbsp:·
-set ic
-set mouse=a " allow mouse usage
-set cmdheight=2 " Set command window height to 2 lines
-set confirm " Instead of failing a command because of unsaved changes, instead raise a dialogue asking if you wish to save changed files
-set visualbell " Use visual bell instead of beeping when doing something wrong
+" Set syntax highlighting for specific file types
+autocmd BufRead,BufNewFile *.md set filetype=markdown
+autocmd BufRead,BufNewFile *.json set foldmethod=indent
 
+set encoding=utf-8
 
-" Open new split panes to right and bottom, which feels more natural
-set splitbelow
-set splitright
+" vim-airline customizations
+let g:airline_theme='bubblegum'
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
 
-" Always use vertical diffs
-set diffopt+=vertical
+" Digraphs
 
-" Display filenames
-set laststatus=2
+"alphsubs ---------------------- {{{
+        execute "digraphs as " . 0x2090
+        execute "digraphs es " . 0x2091
+        execute "digraphs hs " . 0x2095
+        execute "digraphs is " . 0x1D62
+        execute "digraphs js " . 0x2C7C
+        execute "digraphs ks " . 0x2096
+        execute "digraphs ls " . 0x2097
+        execute "digraphs ms " . 0x2098
+        execute "digraphs ns " . 0x2099
+        execute "digraphs os " . 0x2092
+        execute "digraphs ps " . 0x209A
+        execute "digraphs rs " . 0x1D63
+        execute "digraphs ss " . 0x209B
+        execute "digraphs ts " . 0x209C
+        execute "digraphs us " . 0x1D64
+        execute "digraphs vs " . 0x1D65
+        execute "digraphs xs " . 0x2093
+        execute "digraphs Gc " . 0x1D4A2
+        execute "digraphs Nc " . 0x1D4A9
+"}}}
 
-set number
-set wildmenu
-set lazyredraw
-set foldenable
-set foldlevelstart=4
-" move vertically by visual line
+let g:python_highlight_all = 1
+let g:neoformat_python_black = {
+            \ 'exe': 'black',
+            \ 'stdin': 1,
+            \ 'args': ['--line-length', '79', '-', '2>/dev/null'],
+            \ }
+let g:autoflake_remove_all_unused_imports=1
+let g:autoflake_remove_unused_variables=1
+
+" Remapping keys for easier navigation when word wrapping is on
 nnoremap j gj
 nnoremap k gk
-" vim-airline customizations
-let g:airline_theme='solarized'
-"let g:airline#extensions#tabline#enabled=1
-"let g:airline_powerline_fonts = 1
-" NERDTree autoload
-"autocmd StdinReadPre * let s:std_in=1
-"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-" Set foldmethod 
-set foldmethod=syntax
-" colorscheme
-"set background=light
-colorscheme solarized
-set cursorline
-let g:vim_markdown_math=1 " LaTeX enabled
-let g:vim_markdown_frontmatter=1 " Highlight YAML frontmatter
-hi Conceal ctermbg=NONE ctermfg=black 
-let g:pencil#conceallevel = 3     " 0=disable, 1=onechar, 2=hidechar, 3=hideall (def)
-let g:pencil#concealcursor = 'c'  " n=normal, v=visual, i=insert, c=command (def)
-let g:tex_conceal='adgm'
-"autocmd FileType markdown |
-"      \hi def link markdownItalic              NONE |
-"      \hi def link markdownItalicDelimiter     NONE |
-let g:livepreview_previewer = 'open -a Skim'
-
-" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<c-j>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
