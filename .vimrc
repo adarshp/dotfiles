@@ -22,11 +22,15 @@ Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
-Plug 'Townk/vim-autoclose'
+"Plug 'Townk/vim-autoclose'
 Plug 'sbdchd/neoformat'
 Plug 'ryanoasis/vim-devicons'
 Plug 'bfrg/vim-cpp-modern'
 Plug 'JuliaEditorSupport/julia-vim'
+Plug 'PontusPersson/pddl.vim'
+Plug 'leafgarland/typescript-vim'
+Plug 'vim-scripts/applescript.vim'
+"Plug 'kovisoft/slimv'
 call plug#end()
 
 
@@ -53,7 +57,7 @@ nnoremap <C-H> <C-W><C-H>
 set splitbelow splitright
 set wrap linebreak nolist
 set tabstop=4
-set shiftwidth=2
+set shiftwidth=4
 set shiftround
 set expandtab
 set ai
@@ -62,6 +66,10 @@ set textwidth=79
 " Set syntax highlighting for specific file types
 autocmd BufRead,BufNewFile *.md set filetype=markdown
 autocmd BufRead,BufNewFile *.json set foldmethod=indent
+autocmd BufRead,BufNewFile *.cpp set foldmethod=syntax
+autocmd BufRead,BufNewFile *.ts set filetype=typescript
+" Remove trailing whitespace on each write for certain filetypes
+autocmd FileType c,cpp,java,php,sh autocmd BufWritePre <buffer> %s/\s\+$//e
 
 set encoding=utf-8
 
@@ -102,6 +110,13 @@ let g:neoformat_python_black = {
             \ }
 let g:autoflake_remove_all_unused_imports=1
 let g:autoflake_remove_unused_variables=1
+let g:shfmt_opt="-ci -i 4"
+
+let g:neoformat_cs_uncrustify = {
+            \ 'exe': 'uncrustify',
+            \ 'stdin': 1,
+            \ 'args': ['-c', '-', '-q', '-l CS'],
+            \ }
 
 " Remapping keys for easier navigation when word wrapping is on
 nnoremap j gj
