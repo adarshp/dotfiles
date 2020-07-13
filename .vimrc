@@ -10,9 +10,11 @@ call plug#begin('~/.vim/plugged')
 Plug 'godlygeek/tabular'
 Plug 'vim-python/python-syntax', { 'for': 'python' }
 Plug 'nvie/vim-flake8', { 'for': 'python' }
+Plug 'vimwiki/vimwiki'
 Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
 Plug 'tell-k/vim-autoflake', { 'for': 'python' }
-Plug 'lervag/vimtex', { 'for': 'tex' }
+"Plug 'lervag/vimtex', { 'for': 'tex' }
+Plug 'vim-latex/vim-latex', { 'for': 'tex' }
 Plug 'junegunn/seoul256.vim'
 Plug 'altercation/vim-colors-solarized'
 Plug 'junegunn/Goyo.vim'
@@ -68,6 +70,7 @@ autocmd BufRead,BufNewFile *.md set filetype=markdown
 autocmd BufRead,BufNewFile *.json set foldmethod=indent
 autocmd BufRead,BufNewFile *.cpp set foldmethod=syntax
 autocmd BufRead,BufNewFile *.ts set filetype=typescript
+autocmd BufRead,BufNewFile *.wiki set shiftwidth=2
 " Remove trailing whitespace on each write for certain filetypes
 autocmd FileType c,cpp,java,php,sh autocmd BufWritePre <buffer> %s/\s\+$//e
 
@@ -121,3 +124,32 @@ let g:neoformat_cs_uncrustify = {
 " Remapping keys for easier navigation when word wrapping is on
 nnoremap j gj
 nnoremap k gk
+
+" For custom mappings
+augroup MyTeXIMAPs
+
+         au VimEnter * if &filetype == "tex" | imap <Leader>b <Plug>Tex_MathBF| endif
+         au VimEnter * if &filetype == "tex" | imap <Leader>c <Plug>Tex_MathCal| endif
+         au VimEnter * if &filetype == "tex" | imap <Leader>l <Plug>Tex_LeftRight| endif
+         au VimEnter * if &filetype == "tex" | imap <Leader>i <Plug>Tex_InsertItemOnThisLine| endif
+         au VimEnter * if &filetype == "tex" | imap <Leader>u <Plug>Tex_InsertItemOnThisLine| endif
+         au VimEnter * if &filetype == "tex" | imap <Leader>y <Plug>Tex_InsertItemOnNextLine| endif
+         " Note that <C-CR> is mapped to Tex_InsertItemOnNextLine
+
+         au VimEnter * if &filetype == "tex" | imap <C-b> <Plug>Tex_MathBF| endif
+         au VimEnter * if &filetype == "tex" | imap <C-c> <Plug>Tex_MathCal| endif
+         au VimEnter * if &filetype == "tex" | imap <C-l> <Plug>Tex_LeftRight| endif
+         au VimEnter * if &filetype == "tex" | imap <C-u> <Plug>Tex_InsertItemOnThisLine| endif
+         au VimEnter * if &filetype == "tex" | imap <C-y> <Plug>Tex_InsertItemOnNextLine| endif
+         au VimEnter * if &filetype == "tex" | imap <A-u> <Plug>Tex_InsertItemOnThisLine| endif
+         au VimEnter * if &filetype == "tex" | imap <A-y> <Plug>Tex_InsertItemOnNextLine| endif
+augroup END
+
+" ==============================
+" Vimwiki-related configuration
+" ==============================
+" Vimwiki index
+let g:vimwiki_list = [{
+            \ 'path': '~/git/adarshp/src/wiki/',
+            \ 'path_html': '~/git/adarshp/src/wiki/public_html/',
+            \ 'auto_diary_index': 1}]
