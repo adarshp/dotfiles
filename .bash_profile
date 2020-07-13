@@ -1,3 +1,9 @@
+export BASH_SILENCE_DEPRECATION_WARNING=1
+update_dotfiles() {
+  pushd ~/dotfiles > /dev/null && git pull && popd > /dev/null
+  echo "Dotfiles updated."
+}
+
 parse_git_branch() {
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
@@ -12,18 +18,17 @@ if [ -f ~/.bash_aliases ]; then . ~/.bash_aliases; fi
 
 export LC_CTYPE=en_US.UTF-8
 
-export DELPHI_DB=~/github/ml4ai/delphi/data/delphi.db
-export DELPHI_DATA=~/github/ml4ai/delphi/scripts/data
-export MODEL_FILES=~/github/ml4ai/delphi/data/model_files
+export DELPHI_DB=~/git/ml4ai/delphi/data/delphi.db
+export DELPHI_DATA=~/git/ml4ai/delphi/scripts/data
+export MODEL_FILES=~/git/ml4ai/delphi/data/model_files
 export TEXINPUTS="$HOME/ivilab/texinputs:"
-export TOMCAT=~/github/ml4ai/tomcat
 
 # ls colors
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
 
 # Eidos
-export EIDOS=~/github/clulab/eidos
+export EIDOS=~/git/clulab/eidos
 if [[ `hostname` == "qed.sista.arizona.edu" ]]; then
   export JAVA_OPTS=-Xmx62g
 else
@@ -35,20 +40,21 @@ export EIDOSPATH=$EIDOS/target/scala-2.12/eidos-assembly-0.2.3-SNAPSHOT.jar
 
 export PATH=$HOME/ivilab/src/Make/scripts/:$PATH
 export KJB_SRC_PATH=$HOME/ivilab/src/
-export TEXINPUTS="$HOME/ivilab/doc/texinputs:"
+export TEXINPUTS="$HOME/ivilab/texinputs:"
 #export LD_LIBRARY_PATH=`$HOME/ivilab/src/Make/scripts/echo_ld_path`:$LD_LIBRARY_PATH
 #export KJB_WARN_LEVEL=0
 #export FORCE_STOP=1
-#export PYTHONPATH=~/indra:$PYTHONPATH
 #export JAVA_HOME=/Library/Java/JavaVirtualMachines/openjdk8/Contents/Home
 
-##
-# Your previous /Users/adarsh/.bash_profile file was backed up as /Users/adarsh/.bash_profile.macports-saved_2019-07-22_at_16:20:40
-##
+activate_homebrew() {
+  export PATH="~/homebrew/bin:$PATH"
+}
 
 # MacPorts Installer addition on 2019-07-22_at_16:20:40: adding an appropriate PATH variable for use with MacPorts.
-export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
-export MANPATH="/opt/local/share/man:$MANPATH"
+activate_macports() {
+  export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+  export MANPATH="/opt/local/share/man:$MANPATH"
+}
 # Finished adapting your PATH environment variable for use with MacPorts.
 
 
@@ -110,3 +116,7 @@ install_macports() {
   rm -rf Macports-$version*
   port selfupdate
 }
+
+export AUTOMATES_DATA=~/Google\ Drive\ UA/ASKE-AutoMATES/Data
+export OPENFACE_MODELS_DIR=~/git/ml4ai/tomcat/data/OpenFace_models
+activate_macports

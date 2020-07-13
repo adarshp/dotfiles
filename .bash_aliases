@@ -18,5 +18,8 @@ alias gcm='git commit -m'
 alias ties='cd ~/ivilab/src/projects/ties'
 alias port='sudo port'
 alias git='hub'
+alias grep='grep --color=auto'
 #alias rmalldockerimages="docker rmi $(docker images -q)"
+alias vw='cd ~/git/adarshp/src && vim -c VimwikiIndex'
+alias vd='cd ~/git/adarshp/src && vim -c VimwikiDiaryIndex'
 #alias killalldockerimages="docker kill $(docker images -q)"
