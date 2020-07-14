@@ -13,8 +13,8 @@ Plug 'nvie/vim-flake8', { 'for': 'python' }
 Plug 'vimwiki/vimwiki'
 Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
 Plug 'tell-k/vim-autoflake', { 'for': 'python' }
-"Plug 'lervag/vimtex', { 'for': 'tex' }
-Plug 'vim-latex/vim-latex', { 'for': 'tex' }
+Plug 'lervag/vimtex', { 'for': 'tex' }
+"Plug 'vim-latex/vim-latex', { 'for': 'tex' }
 Plug 'junegunn/seoul256.vim'
 Plug 'altercation/vim-colors-solarized'
 Plug 'junegunn/Goyo.vim'
@@ -125,25 +125,25 @@ let g:neoformat_cs_uncrustify = {
 nnoremap j gj
 nnoremap k gk
 
-" For custom mappings
-augroup MyTeXIMAPs
+" Custom mappings for latex-suite
+"augroup MyTeXIMAPs
 
-         au VimEnter * if &filetype == "tex" | imap <Leader>b <Plug>Tex_MathBF| endif
-         au VimEnter * if &filetype == "tex" | imap <Leader>c <Plug>Tex_MathCal| endif
-         au VimEnter * if &filetype == "tex" | imap <Leader>l <Plug>Tex_LeftRight| endif
-         au VimEnter * if &filetype == "tex" | imap <Leader>i <Plug>Tex_InsertItemOnThisLine| endif
-         au VimEnter * if &filetype == "tex" | imap <Leader>u <Plug>Tex_InsertItemOnThisLine| endif
-         au VimEnter * if &filetype == "tex" | imap <Leader>y <Plug>Tex_InsertItemOnNextLine| endif
-         " Note that <C-CR> is mapped to Tex_InsertItemOnNextLine
+         "au VimEnter * if &filetype == "tex" | imap <Leader>b <Plug>Tex_MathBF| endif
+         "au VimEnter * if &filetype == "tex" | imap <Leader>c <Plug>Tex_MathCal| endif
+         "au VimEnter * if &filetype == "tex" | imap <Leader>l <Plug>Tex_LeftRight| endif
+         "au VimEnter * if &filetype == "tex" | imap <Leader>i <Plug>Tex_InsertItemOnThisLine| endif
+         "au VimEnter * if &filetype == "tex" | imap <Leader>u <Plug>Tex_InsertItemOnThisLine| endif
+         "au VimEnter * if &filetype == "tex" | imap <Leader>y <Plug>Tex_InsertItemOnNextLine| endif
+         "" Note that <C-CR> is mapped to Tex_InsertItemOnNextLine
 
-         au VimEnter * if &filetype == "tex" | imap <C-b> <Plug>Tex_MathBF| endif
-         au VimEnter * if &filetype == "tex" | imap <C-c> <Plug>Tex_MathCal| endif
-         au VimEnter * if &filetype == "tex" | imap <C-l> <Plug>Tex_LeftRight| endif
-         au VimEnter * if &filetype == "tex" | imap <C-u> <Plug>Tex_InsertItemOnThisLine| endif
-         au VimEnter * if &filetype == "tex" | imap <C-y> <Plug>Tex_InsertItemOnNextLine| endif
-         au VimEnter * if &filetype == "tex" | imap <A-u> <Plug>Tex_InsertItemOnThisLine| endif
-         au VimEnter * if &filetype == "tex" | imap <A-y> <Plug>Tex_InsertItemOnNextLine| endif
-augroup END
+         "au VimEnter * if &filetype == "tex" | imap <C-b> <Plug>Tex_MathBF| endif
+         "au VimEnter * if &filetype == "tex" | imap <C-c> <Plug>Tex_MathCal| endif
+         "au VimEnter * if &filetype == "tex" | imap <C-l> <Plug>Tex_LeftRight| endif
+         "au VimEnter * if &filetype == "tex" | imap <C-u> <Plug>Tex_InsertItemOnThisLine| endif
+         "au VimEnter * if &filetype == "tex" | imap <C-y> <Plug>Tex_InsertItemOnNextLine| endif
+         "au VimEnter * if &filetype == "tex" | imap <A-u> <Plug>Tex_InsertItemOnThisLine| endif
+         "au VimEnter * if &filetype == "tex" | imap <A-y> <Plug>Tex_InsertItemOnNextLine| endif
+"augroup END
 
 " ==============================
 " Vimwiki-related configuration
