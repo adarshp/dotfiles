@@ -21,7 +21,7 @@ alias port='sudo port'
 alias v='vi'
 alias grep='grep --color=auto'
 alias sed=gsed
-alias vd='vim -c VimwikiMakeDiaryNote'
-alias vw='vim -c VimwikiIndex'
 #alias rmalldockerimages="docker rmi $(docker images -q)"
+alias vw='cd ~/git/adarshp/src && vim -c VimwikiIndex'
+alias vd='cd ~/git/adarshp/src && vim -c VimwikiMakeDiaryNote'
 #alias killalldockerimages="docker kill $(docker images -q)"
