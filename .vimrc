@@ -9,6 +9,7 @@ endif
 call plug#begin('~/.vim/plugged')
 Plug 'godlygeek/tabular'
 Plug 'vim-python/python-syntax', { 'for': 'python' }
+Plug 'vimwiki/vimwiki'
 Plug 'nvie/vim-flake8', { 'for': 'python' }
 Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
 Plug 'tell-k/vim-autoflake', { 'for': 'python' }
@@ -27,6 +28,12 @@ Plug 'sbdchd/neoformat'
 Plug 'ryanoasis/vim-devicons'
 Plug 'bfrg/vim-cpp-modern'
 Plug 'JuliaEditorSupport/julia-vim'
+Plug 'kovisoft/slimv'
+Plug 'PontusPersson/pddl.vim'
+Plug 'vim-scripts/applescript.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'vim-syntastic/syntastic'
 call plug#end()
 
 
@@ -53,15 +60,17 @@ nnoremap <C-H> <C-W><C-H>
 set splitbelow splitright
 set wrap linebreak nolist
 set tabstop=4
-set shiftwidth=2
+set shiftwidth=4
 set shiftround
 set expandtab
 set ai
 set textwidth=79
 
 " Set syntax highlighting for specific file types
+autocmd BufRead,BufNewFile *.pddl set filetype=lisp
 autocmd BufRead,BufNewFile *.md set filetype=markdown
 autocmd BufRead,BufNewFile *.json set foldmethod=indent
+autocmd BufRead,BufNewFile *.yaml set shiftwidth=2
 
 set encoding=utf-8
 
@@ -102,6 +111,7 @@ let g:neoformat_python_black = {
             \ }
 let g:autoflake_remove_all_unused_imports=1
 let g:autoflake_remove_unused_variables=1
+let g:vimwiki_list = [{'path': '~/git/adarshp/src/wiki'}]
 
 " Remapping keys for easier navigation when word wrapping is on
 nnoremap j gj

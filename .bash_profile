@@ -1,3 +1,5 @@
+export BASH_SILENCE_DEPRECATION_WARNING=1
+# Get the current git branch
 parse_git_branch() {
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
@@ -16,7 +18,8 @@ export DELPHI_DB=~/github/ml4ai/delphi/data/delphi.db
 export DELPHI_DATA=~/github/ml4ai/delphi/scripts/data
 export MODEL_FILES=~/github/ml4ai/delphi/data/model_files
 export TEXINPUTS="$HOME/ivilab/texinputs:"
-export TOMCAT=~/github/ml4ai/tomcat
+#export TOMCAT=~/github/ml4ai/tomcat
+export OPENFACE_MODELS_DIR=~/git/ml4ai/tomcat/data/OpenFace_models
 
 # ls colors
 export CLICOLOR=1
@@ -40,16 +43,13 @@ export TEXINPUTS="$HOME/ivilab/doc/texinputs:"
 #export KJB_WARN_LEVEL=0
 #export FORCE_STOP=1
 #export PYTHONPATH=~/indra:$PYTHONPATH
-#export JAVA_HOME=/Library/Java/JavaVirtualMachines/openjdk8/Contents/Home
 
-##
-# Your previous /Users/adarsh/.bash_profile file was backed up as /Users/adarsh/.bash_profile.macports-saved_2019-07-22_at_16:20:40
-##
-
-# MacPorts Installer addition on 2019-07-22_at_16:20:40: adding an appropriate PATH variable for use with MacPorts.
+# Macports
 export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 export MANPATH="/opt/local/share/man:$MANPATH"
-# Finished adapting your PATH environment variable for use with MacPorts.
+
+#Homebrew
+#export PATH="~/homebrew/bin:$PATH"
 
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
@@ -109,4 +109,11 @@ install_macports() {
   popd
   rm -rf Macports-$version*
   port selfupdate
+}
+
+search_and_replace() {
+  local filename_pattern=$1
+  local pattern_to_find=$2
+  local replacement=$3
+  find . -name ${filename_pattern} -exec gsed -i "s/${pattern_to_find}/${replacement}/g" {} \;
 }
