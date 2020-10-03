@@ -1,4 +1,8 @@
 export BASH_SILENCE_DEPRECATION_WARNING=1
+
+# Use vi mode in the shell
+set -o vi
+
 update_dotfiles() {
   pushd ~/dotfiles > /dev/null && git pull && popd > /dev/null
   echo "Dotfiles updated."
@@ -38,12 +42,7 @@ fi
 export EIDOSPATH=$EIDOS/target/scala-2.12/eidos-assembly-0.2.3-SNAPSHOT.jar
 
 
-export PATH=$HOME/ivilab/src/Make/scripts/:$PATH
-export KJB_SRC_PATH=$HOME/ivilab/src/
 export TEXINPUTS="$HOME/ivilab/texinputs:"
-#export LD_LIBRARY_PATH=`$HOME/ivilab/src/Make/scripts/echo_ld_path`:$LD_LIBRARY_PATH
-#export KJB_WARN_LEVEL=0
-#export FORCE_STOP=1
 #export JAVA_HOME=/Library/Java/JavaVirtualMachines/openjdk8/Contents/Home
 
 activate_homebrew() {
@@ -117,6 +116,15 @@ install_macports() {
   port selfupdate
 }
 
-export AUTOMATES_DATA=~/Google\ Drive\ UA/ASKE-AutoMATES/Data
-export OPENFACE_MODELS_DIR=~/git/ml4ai/tomcat/data/OpenFace_models
 activate_macports
+
+# Get the latest file from the ~/Downloads directory, and if it is a .ris file,
+# convert it to BibTeX format, copy it to the clipboard, and delete the
+# original file. This is useful for when websites don't have BibTeX exports.
+latest_citation_to_bibtex() {
+    local file=$(ls -l ~/Downloads | head -n1)
+    if [[ $file = *.ris ]]; then
+        ris2xml $file | xml2bib | pbcopy
+        rm $file
+    fi
+}

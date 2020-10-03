@@ -71,8 +71,11 @@ autocmd BufRead,BufNewFile *.json set foldmethod=indent
 autocmd BufRead,BufNewFile *.cpp set foldmethod=syntax
 autocmd BufRead,BufNewFile *.ts set filetype=typescript
 autocmd BufRead,BufNewFile *.wiki set shiftwidth=2
+autocmd BufRead,BufNewFile *.cls set filetype=tex
+
+"
 " Remove trailing whitespace on each write for certain filetypes
-autocmd FileType c,cpp,java,php,sh autocmd BufWritePre <buffer> %s/\s\+$//e
+autocmd FileType c,cpp,java,php,sh,markdown,rst autocmd BufWritePre <buffer> %s/\s\+$//e
 
 set encoding=utf-8
 
@@ -152,4 +155,5 @@ nnoremap k gk
 let g:vimwiki_list = [{
             \ 'path': '~/git/adarshp/src/wiki/',
             \ 'path_html': '~/git/adarshp/src/wiki/public_html/',
-            \ 'auto_diary_index': 1}]
+            \ 'auto_diary_index': 1,
+            \ 'auto_toc': 1}]
