@@ -8,6 +8,7 @@ update_dotfiles() {
   echo "Dotfiles updated."
 }
 
+# Get the current git branch
 parse_git_branch() {
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
@@ -26,6 +27,7 @@ export DELPHI_DB=~/git/ml4ai/delphi/data/delphi.db
 export DELPHI_DATA=~/git/ml4ai/delphi/scripts/data
 export MODEL_FILES=~/git/ml4ai/delphi/data/model_files
 export TEXINPUTS="$HOME/ivilab/texinputs:"
+export OPENFACE_MODELS_DIR=~/git/ml4ai/tomcat/data/OpenFace_models
 
 # ls colors
 export CLICOLOR=1
@@ -116,6 +118,14 @@ install_macports() {
   port selfupdate
 }
 
+search_and_replace() {
+  local filename_pattern=$1
+  local pattern_to_find=$2
+  local replacement=$3
+  find . -name ${filename_pattern} -exec gsed -i "s/${pattern_to_find}/${replacement}/g" {} \;
+}
+
+export AUTOMATES_DATA=~/Google\ Drive\ UA/ASKE-AutoMATES/Data
 activate_macports
 
 # Get the latest file from the ~/Downloads directory, and if it is a .ris file,

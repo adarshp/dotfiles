@@ -9,6 +9,7 @@ endif
 call plug#begin('~/.vim/plugged')
 Plug 'godlygeek/tabular'
 Plug 'vim-python/python-syntax', { 'for': 'python' }
+Plug 'vimwiki/vimwiki'
 Plug 'nvie/vim-flake8', { 'for': 'python' }
 Plug 'vimwiki/vimwiki'
 Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
@@ -24,15 +25,18 @@ Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
-"Plug 'Townk/vim-autoclose'
+Plug 'Townk/vim-autoclose'
 Plug 'sbdchd/neoformat'
 Plug 'ryanoasis/vim-devicons'
 Plug 'bfrg/vim-cpp-modern'
 Plug 'JuliaEditorSupport/julia-vim'
+Plug 'kovisoft/slimv'
 Plug 'PontusPersson/pddl.vim'
-Plug 'leafgarland/typescript-vim'
 Plug 'vim-scripts/applescript.vim'
-"Plug 'kovisoft/slimv'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'vim-syntastic/syntastic'
+Plug 'leafgarland/typescript-vim'
 call plug#end()
 
 
@@ -66,14 +70,15 @@ set ai
 set textwidth=79
 
 " Set syntax highlighting for specific file types
+autocmd BufRead,BufNewFile *.pddl set filetype=lisp
 autocmd BufRead,BufNewFile *.md set filetype=markdown
 autocmd BufRead,BufNewFile *.json set foldmethod=indent
+autocmd BufRead,BufNewFile *.yaml set shiftwidth=2
 autocmd BufRead,BufNewFile *.cpp set foldmethod=syntax
 autocmd BufRead,BufNewFile *.ts set filetype=typescript
 autocmd BufRead,BufNewFile *.wiki set shiftwidth=2
 autocmd BufRead,BufNewFile *.cls set filetype=tex
 
-"
 " Remove trailing whitespace on each write for certain filetypes
 autocmd FileType c,cpp,java,php,sh,markdown,rst autocmd BufWritePre <buffer> %s/\s\+$//e
 
@@ -116,6 +121,7 @@ let g:neoformat_python_black = {
             \ }
 let g:autoflake_remove_all_unused_imports=1
 let g:autoflake_remove_unused_variables=1
+
 let g:shfmt_opt="-ci -i 4"
 
 let g:neoformat_cs_uncrustify = {
@@ -151,6 +157,7 @@ nnoremap k gk
 " ==============================
 " Vimwiki-related configuration
 " ==============================
+
 " Vimwiki index
 let g:vimwiki_list = [{
             \ 'path': '~/git/adarshp/src/wiki/',

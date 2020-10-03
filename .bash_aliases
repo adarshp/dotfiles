@@ -10,7 +10,9 @@ alias gpull='git pull'
 alias gcm='git commit -m'
 alias ties='cd ~/ivilab/src/projects/ties'
 alias port='sudo port'
+alias v='vi'
 alias grep='grep --color=auto'
+alias sed=gsed
 #alias rmalldockerimages="docker rmi $(docker images -q)"
 alias vw='cd ~/git/adarshp/src && vim -c VimwikiIndex'
 alias vd='cd ~/git/adarshp/src && vim -c VimwikiMakeDiaryNote'
