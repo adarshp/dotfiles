@@ -8,6 +8,7 @@ endif
 
 call plug#begin('~/.vim/plugged')
 Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
 Plug 'vim-python/python-syntax', { 'for': 'python' }
 Plug 'vimwiki/vimwiki'
 Plug 'nvie/vim-flake8', { 'for': 'python' }
@@ -30,8 +31,8 @@ Plug 'sbdchd/neoformat'
 Plug 'ryanoasis/vim-devicons'
 Plug 'bfrg/vim-cpp-modern'
 Plug 'JuliaEditorSupport/julia-vim'
-Plug 'kovisoft/slimv'
-Plug 'PontusPersson/pddl.vim'
+"Plug 'kovisoft/slimv'
+"Plug 'PontusPersson/pddl.vim'
 Plug 'vim-scripts/applescript.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -40,6 +41,7 @@ Plug 'leafgarland/typescript-vim'
 call plug#end()
 
 
+set nocompatible
 syntax enable
 " set Vim-specific sequences for RGB colors
 set termguicolors
@@ -73,14 +75,16 @@ set textwidth=79
 autocmd BufRead,BufNewFile *.pddl set filetype=lisp
 autocmd BufRead,BufNewFile *.md set filetype=markdown
 autocmd BufRead,BufNewFile *.json set foldmethod=indent
-autocmd BufRead,BufNewFile *.yaml set shiftwidth=2
+autocmd BufRead,BufNewFile *.yaml set shiftwidth=2 tabstop=2
 autocmd BufRead,BufNewFile *.cpp set foldmethod=syntax
 autocmd BufRead,BufNewFile *.ts set filetype=typescript
 autocmd BufRead,BufNewFile *.wiki set shiftwidth=2
 
 " Remove trailing whitespace on each write for certain filetypes
-autocmd FileType c,cpp,java,php,sh autocmd BufWritePre <buffer> %s/\s\+$//e
+autocmd FileType c,cpp,java,php,sh,vimwiki autocmd BufWritePre <buffer> %s/\s\+$//e
 
+" Tag files for libIVI
+set tags=./tags,tags,./tags_h,tags_h
 set encoding=utf-8
 
 " vim-airline customizations
