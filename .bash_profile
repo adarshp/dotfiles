@@ -129,12 +129,16 @@ export AUTOMATES_DATA=~/Google\ Drive\ UA/ASKE-AutoMATES/Data
 activate_macports
 
 # Get the latest file from the ~/Downloads directory, and if it is a .ris file,
-# convert it to BibTeX format, copy it to the clipboard, and delete the
-# original file. This is useful for when websites don't have BibTeX exports.
+# convert it to BibTeX format, normalize it with bibtool, copy it to the
+# clipboard, and delete the original file. This is useful for when websites
+# don't have BibTeX exports.
 latest_citation_to_bibtex() {
-    local file=$(ls -l ~/Downloads | head -n1)
+    local file=$(ls -td ~/Downloads/* | head -n1)
+    echo $file
     if [[ $file = *.ris ]]; then
-        ris2xml $file | xml2bib | pbcopy
+        ris2xml $file | xml2bib | bibtool -f "%1p(author):%4d(year)" | pbcopy
         rm $file
+    elif [[ $file = *.bib ]]; then
+        cat $file | bibtool -f "%1p(author):%4d(year)" | pbcopy
     fi
 }
