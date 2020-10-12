@@ -3,6 +3,9 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 # Set the default text editor
 export EDITOR=vim
 
+# Use vi mode in the shell
+set -o vi
+
 update_dotfiles() {
   pushd ~/dotfiles > /dev/null && git pull && popd > /dev/null
   echo "Dotfiles updated."
@@ -46,10 +49,8 @@ export EIDOSPATH=$EIDOS/target/scala-2.12/eidos-assembly-0.2.3-SNAPSHOT.jar
 
 
 #export PATH=$HOME/ivilab/src/Make/scripts/:$PATH
-#export KJB_SRC_PATH=$HOME/ivilab/src/
 #export LD_LIBRARY_PATH=`$HOME/ivilab/src/Make/scripts/echo_ld_path`:$LD_LIBRARY_PATH
-#export KJB_WARN_LEVEL=0
-#export FORCE_STOP=1
+export TEXINPUTS="$HOME/ivilab/texinputs:"
 
 activate_homebrew() {
   export PATH="~/homebrew/bin:~/homebrew/sbin:$PATH"
@@ -94,6 +95,21 @@ activate() {
   source ~/.venvs/$1/bin/activate
 }
 
+# Function to install MacPorts from source.
+install_macports() {
+  local version=2.6.2
+  curl -O https://distfiles.macports.org/MacPorts/MacPorts-$version.tar.bz2
+  tar xf MacPorts-$version.tar.bz2
+  pushd MacPorts-$version
+    ./configure
+    make -j
+    sudo make -j install
+  popd
+  rm -rf Macports-$version*
+  port selfupdate
+}
+
+# Function to full purge MacPorts from system.
 purge_macports() {
   sudo port -fp uninstall installed
   dscl -p . -delete /Users/macports
@@ -111,19 +127,8 @@ purge_macports() {
     ~/.macports
 }
 
-install_macports() {
-  local version=2.6.2
-  curl -O https://distfiles.macports.org/MacPorts/MacPorts-$version.tar.bz2
-  tar xf MacPorts-$version.tar.bz2
-  pushd MacPorts-$version
-    ./configure
-    make -j
-    sudo make -j install
-  popd
-  rm -rf Macports-$version*
-  port selfupdate
-}
 
+# Search and replace helper function
 search_and_replace() {
   local filename_pattern=$1
   local pattern_to_find=$2
@@ -132,7 +137,7 @@ search_and_replace() {
 }
 
 export AUTOMATES_DATA=~/Google\ Drive\ UA/ASKE-AutoMATES/Data
-export OPENFACE_MODELS_DIR=~/git/ml4ai/tomcat/data/OpenFace_models
 
 activate_macports
+
 export JAVA_HOME=~/git/ml4ai/tomcat/external/jdk8u232-b09/Contents/Home
