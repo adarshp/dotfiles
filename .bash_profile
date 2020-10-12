@@ -1,5 +1,8 @@
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
+# Set the default text editor
+export EDITOR=vim
+
 update_dotfiles() {
   pushd ~/dotfiles > /dev/null && git pull && popd > /dev/null
   echo "Dotfiles updated."
@@ -23,13 +26,14 @@ export LC_CTYPE=en_US.UTF-8
 export DELPHI_DB=~/git/ml4ai/delphi/data/delphi.db
 export DELPHI_DATA=~/git/ml4ai/delphi/scripts/data
 export MODEL_FILES=~/git/ml4ai/delphi/data/model_files
-export TEXINPUTS="$HOME/ivilab/texinputs:"
+export TEXINPUTS="$HOME/ivilab/texinputs:$HOME/git/adarshp/src/texinputs:"
 export OPENFACE_MODELS_DIR=~/git/ml4ai/tomcat/data/OpenFace_models
 
 # ls colors
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
 
+JAVA_HOME=~/git/ml4ai/tomcat/external/jdk8u232-b09/Contents/Home
 # Eidos
 export EIDOS=~/git/clulab/eidos
 if [[ `hostname` == "qed.sista.arizona.edu" ]]; then
@@ -41,15 +45,14 @@ fi
 export EIDOSPATH=$EIDOS/target/scala-2.12/eidos-assembly-0.2.3-SNAPSHOT.jar
 
 
-export PATH=$HOME/ivilab/src/Make/scripts/:$PATH
-export KJB_SRC_PATH=$HOME/ivilab/src/
-export TEXINPUTS="$HOME/ivilab/texinputs:"
+#export PATH=$HOME/ivilab/src/Make/scripts/:$PATH
+#export KJB_SRC_PATH=$HOME/ivilab/src/
 #export LD_LIBRARY_PATH=`$HOME/ivilab/src/Make/scripts/echo_ld_path`:$LD_LIBRARY_PATH
 #export KJB_WARN_LEVEL=0
 #export FORCE_STOP=1
 
 activate_homebrew() {
-  export PATH="~/homebrew/bin:$PATH"
+  export PATH="~/homebrew/bin:~/homebrew/sbin:$PATH"
 }
 
 # MacPorts Installer addition on 2019-07-22_at_16:20:40: adding an appropriate PATH variable for use with MacPorts.
@@ -78,9 +81,11 @@ activate_py3() {
   port select --set python python$1
   port select --set python3 python$1
   port select --set pip pip$1
+  port select --set pip3 pip$1
 }
 
 create_new_venv() {
+  mkdir -p ~/.venvs
   python -m venv ~/.venvs/$1
 }
 
@@ -128,4 +133,6 @@ search_and_replace() {
 
 export AUTOMATES_DATA=~/Google\ Drive\ UA/ASKE-AutoMATES/Data
 export OPENFACE_MODELS_DIR=~/git/ml4ai/tomcat/data/OpenFace_models
+
 activate_macports
+export JAVA_HOME=~/git/ml4ai/tomcat/external/jdk8u232-b09/Contents/Home
