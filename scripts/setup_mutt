@@ -2,6 +2,7 @@
 
 if [[ ! -f /var/mail/$USER ]]; then
     if [[ $OSTYPE = "darwin"* ]]; then
+        sudo port install mutt
         sudo touch /var/mail/$USER
     else
         # Not sure if this will really work :)
