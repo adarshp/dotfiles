@@ -1,0 +1,35 @@
+# Sidebar (NeoMutt)
+set sidebar_visible
+set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"
+set mail_check_stats
+
+# Custom keybindings
+source ~/.mutt/keybindings
+
+# Custom colors
+source ~/.mutt/colors
+
+# For viewing HTML
+set mailcap_path = ~/.mutt/mailcap
+auto_view text/html
+
+# Have mutt default to text when available and use w3m only when no text
+# version is available in the email.
+alternative_order text/plain text/html
+
+# Don't ask for confirmation before deleting messages
+set delete=yes
+
+# Folder hooks
+folder-hook 'account.arizona.edu.adarsh' 'source ~/.mutt/account.edu.arizona.adarsh'
+
+# Default account
+source ~/.mutt/account.edu.arizona.adarsh
+
+# Macros for switching accounts
+#macro index <f2> '<sync-mailbox><enter-command>source ~/.mutt/account.edu.arizona.adarsh<enter><change-folder>!<enter>'
+
+# Fetch mail shortcut
+#bind index G imap-fetch-mail
+
+# vim: syntax=neomuttrc

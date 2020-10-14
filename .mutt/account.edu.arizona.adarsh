@@ -1,0 +1,95 @@
+## Basic configuration
+# Adapted from https://github.com/ork/mutt-office365
+
+set my_realname="Adarsh Pyarelal"
+set my_username="adarsh"
+set my_domain="email.arizona.edu"
+set my_lang="en_US"
+
+### Advanced configuration
+### YOU SHOULD NOT MODIFY THIS UNLESS YOU KNOW WHAT YOU'RE DOING
+
+## Loading language properties
+
+source "~/.mutt/lang/$my_lang"
+
+## Server config
+
+# IMAP config
+set imap_user="$my_username@$my_domain"
+set imap_pass=`pass outlook365.arizona.edu`
+
+set folder="imaps://outlook.office365.com/"
+set spoolfile= +INBOX
+set postponed= +$my_drafts_noquote
+set record = +$my_sent_noquote
+set trash = +$my_trash_noquote
+mailboxes = "+inbox" "+Archive" "+Outbox" "+Drafts" "+$my_trash_noquote" "+$my_sent_noquote" "+$my_drafts_noquote"
+
+set imap_check_subscribed="yes"
+set imap_list_subscribed="yes"
+set timeout=15
+set mail_check=90
+set imap_keepalive=180
+set imap_idle
+unset mark_old
+set ssl_use_sslv3=yes
+
+# SMTP config
+set realname = $my_realname
+set from = "$my_username@arizona.edu"
+set hostname = $my_domain
+set smtp_url = "smtp://$my_username@$my_domain@outlook.office365.com:587/"
+set ssl_force_tls = yes
+set smtp_authenticators = "login"
+
+## More settings
+
+# File storage settings
+
+set signature="~/.mutt/signature"
+set header_cache="~/.mutt/edu.arizona.adarsh/cache/headers"
+set message_cachedir = "~/.mutt/edu.arizona.adarsh/cache/bodies"
+set certificate_file = "~/.mutt/edu.arizona.adarsh/certificates"
+set tmpdir="~/.mutt/tmp"
+
+# Text view first
+set pager_stop="yes"
+set smart_wrap="yes"
+alternative_order text/plain
+auto_view text/html
+set reverse_name=yes
+set reverse_realname=yes
+
+# Text editor
+#set editor='vim + -c "set textwidth=72" -c "set wrap" -c "set nocp" -c "?^$"'
+set editor="vim"
+
+# Adress book handling
+set sort_alias=alias
+set reverse_alias=yes
+set alias_file="~/.mutt/aliases"
+source "~/.mutt/gal"
+source "~/.mutt/aliases"
+source "~/.mutt/mailing_lists"
+
+# Thread ordering
+set sort = 'threads'
+set sort_browser="reverse-date"
+set sort_aux="last-date-received"
+unset collapse_unread
+set index_format=" %?M?   ↳&%4C?   %Z      %D     %-15.15n    %s"
+
+## Key bindings
+
+# Macro to archive messages
+macro index S ":set confirmappend=no delete=yes\n<tag-prefix><save-message>=archive\n<sync-mailbox>:set confirmappend=yes delete=ask-yes\n"
+
+# For better looks
+set markers=no # don't put '+' at the beginning of wrapped lines
+#set pager_index_lines= 10 # how large is the index window?
+
+# Fallback to view HTML email in a browser
+macro attach 'V' "<pipe-entry>iconv -c --to-code=UTF8 > ~/.mutt/edu.arizona.adarsh/cache/mail.html<enter><shell-escape>$BROWSER ~/.mutt/edu.arizona.adarsh/cache/mail.html<enter>"
+
+# vim: syntax=neomuttrc

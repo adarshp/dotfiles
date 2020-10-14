@@ -1,0 +1,4 @@
+# Use w3m to view HTML emails in a sane way
+text/html; w3m -I %{charset} -T text/html; copiousoutput;
+
+application/*; open %s &> /dev/null &;
