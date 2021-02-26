@@ -10,7 +10,7 @@ set -euo pipefail
 ROOT="$(cd "$( dirname "${BASH_SOURCE[0]}" )/../" >/dev/null 2>&1 && pwd)"
 export ROOT
 
-FILES_AND_DIRS_TO_SYMLINK=".vimrc .bash_profile .bash_aliases .mutt"
+FILES_AND_DIRS_TO_SYMLINK=".vimrc .bashrc_common .bash_profile .bash_aliases"
 for f in $FILES_AND_DIRS_TO_SYMLINK; do
     ln -sf $ROOT/$f ~/$f
 done
