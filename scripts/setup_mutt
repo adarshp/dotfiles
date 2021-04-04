@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+if [[ ! -f /var/mail/$USER ]]; then
+    if [[ $OSTYPE = "darwin"* ]]; then
+        sudo port install mutt
+        sudo touch /var/mail/$USER
+    else
+        # Not sure if this will really work :)
+        touch /var/mail/$USER
+    fi
+fi
+
+# Creating cache directories for arizona.edu Exchange account
+for dir in bodies certificates; do
+    mkdir -p ~/.mutt/edu.arizona.adarsh/cache/${dir}
+done

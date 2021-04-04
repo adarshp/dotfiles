@@ -1,9 +1,0 @@
-#!/bin/bash
-
-# This script symlinks the dotfiles defined in the 'dotfiles' variable to the
-# home directory.
-
-dotfiles=".vimrc .bash_profile .bash_aliases"
-for f in $dotfiles; do 
-  ln -sf `pwd`/$f ~/$f
-done
