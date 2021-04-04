@@ -26,7 +26,7 @@ export LC_CTYPE=en_US.UTF-8
 export DELPHI_DB=~/git/ml4ai/delphi/data/delphi.db
 export DELPHI_DATA=~/git/ml4ai/delphi/scripts/data
 export MODEL_FILES=~/git/ml4ai/delphi/data/model_files
-export TEXINPUTS="$HOME/ivilab/texinputs:"
+export TEXINPUTS="$HOME/ivilab/texinputs:$HOME/git/adarshp/src/texinputs:"
 export OPENFACE_MODELS_DIR=~/git/ml4ai/tomcat/data/OpenFace_models
 
 # ls colors
@@ -44,7 +44,6 @@ fi
 export EIDOSPATH=$EIDOS/target/scala-2.12/eidos-assembly-0.2.3-SNAPSHOT.jar
 
 
-export TEXINPUTS="$HOME/ivilab/texinputs:"
 #export JAVA_HOME=/Library/Java/JavaVirtualMachines/openjdk8/Contents/Home
 
 activate_homebrew() {
@@ -61,11 +60,10 @@ activate_macports() {
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
 
-# Create a new Python virtual environment
 activate_py2() {
-  port select --set python python27
-  port select --set python2 python27
-  port select --set pip pip27
+  sudo port select --set python python27
+  sudo port select --set python2 python27
+  sudo port select --set pip pip27
 }
 
 # Usage example:
@@ -73,13 +71,14 @@ activate_py2() {
 #     activate_py3 37
 #
 # will activate Python 3.7
-activate_py3() {
-  port select --set python python$1
-  port select --set python3 python$1
-  port select --set pip pip$1
+activate_py3(){
+  sudo port select --set python python$1
+  sudo port select --set python3 python$1
+  sudo port select --set pip pip$1
 }
 
-create_new_venv() {
+# Create a new Python virtual environment
+create_new_venv(){
   python -m venv ~/.venvs/$1
 }
 
@@ -126,7 +125,6 @@ search_and_replace() {
 }
 
 export AUTOMATES_DATA=~/Google\ Drive\ UA/ASKE-AutoMATES/Data
-activate_macports
 
 # Get the latest file from the ~/Downloads directory, and if it is a .ris file,
 # convert it to BibTeX format, normalize it with bibtool, copy it to the
@@ -134,11 +132,15 @@ activate_macports
 # don't have BibTeX exports.
 latest_citation_to_bibtex() {
     local file=$(ls -td ~/Downloads/* | head -n1)
-    echo $file
-    if [[ $file = *.ris ]]; then
-        ris2xml $file | xml2bib | bibtool -f "%1p(author):%4d(year)" | pbcopy
+    if [[ $file = *.ris || $file = *.bib || $file = *.bibtex ]]; then
+        if [[ $file = *.ris ]]; then
+            ris2xml $file | xml2bib | bibtool -f "%1p(author):%4d(year)" | pbcopy
+        else
+            cat $file | bibtool -f "%1p(author):%4d(year)" | pbcopy
+        fi
+        pbpaste | sed "s/{\^a}??/'/g" | pbcopy
         rm $file
-    elif [[ $file = *.bib ]]; then
-        cat $file | bibtool -f "%1p(author):%4d(year)" | pbcopy
     fi
 }
+
+activate_macports
