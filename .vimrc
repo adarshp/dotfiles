@@ -158,9 +158,10 @@ nnoremap k gk
 " Vimwiki-related configuration
 " ==============================
 
-" Vimwiki index
 let g:vimwiki_list = [{
-            \ 'path': '~/git/adarshp/src/wiki/',
-            \ 'path_html': '~/git/adarshp/src/wiki/public_html/',
-            \ 'auto_diary_index': 1,
-            \ 'auto_toc': 1}]
+    \ 'path': '~/git/adarshp/src/wiki/',
+    \ 'path_html': '~/git/adarshp/src/wiki/public_html/',
+    \ 'auto_diary_index': 1,
+    \ 'auto_toc': 1,
+    \ 'auto_tags': 1
+    \}]
