@@ -9,7 +9,6 @@ alias gpush='git push'
 alias gpull='git pull'
 alias gcm='git commit -m'
 alias ties='cd ~/ivilab/src/projects/ties'
-alias port='sudo port'
 alias v='vi'
 alias grep='grep --color=auto'
 alias sed=gsed
