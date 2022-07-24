@@ -52,7 +52,7 @@ let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 set background=dark
 colorscheme seoul256
 
-"highlight Comment cterm=italic
+highlight Comment cterm=italic
 set number
 
 " Easier split navigations
