@@ -8,10 +8,15 @@ if status is-interactive
     set -x PATH "/opt/local/bin:/opt/local/sbin:$PATH"
     # Finished adapting your PATH environment variable for use with MacPorts.
 
+    # Add path for Rust and Cargo installed by Rustup
+    set -x PATH "$HOME/.cargo/bin:$PATH"
+
     set -x EDITOR vim
     alias vw 'cd ~/git/adarshp/src && vim -c VimwikiIndex'
     alias vimrc 'vim ~/.vimrc'
     alias gst 'git status'
+    alias gp 'git push'
+    alias ls 'lsd'
 
     # Create a new Python 3 virtual environment
     #
