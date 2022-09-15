@@ -12,12 +12,36 @@ if status is-interactive
     set -x PATH "$HOME/.cargo/bin:$PATH"
 
     set -x EDITOR vim
+
+    # Make a nice one-letter alias for vi
+    alias v 'vi'
+
+    # Open the Vimwiki index
     alias vw 'cd ~/git/adarshp/src && vim -c VimwikiIndex'
+
+    # Open today's Vimwiki diary entry
+    alias vd 'cd ~/git/adarshp/src && vim -c VimwikiMakeDiaryNote'
+
+    # Open ~/.vimrc in vim
     alias vimrc 'vim ~/.vimrc'
+
+    # Aliases for faster git
     alias gst 'git status'
     alias gp 'git push'
+
+    # Alias 'ls' to 'lsd'
     alias ls 'lsd'
 
+    # Push dotfile changes
+    function update_dotfiles
+        pushd ~/git/adarshp/dotfiles
+            git add .
+            git commit -m "Adding latest dotfile changes"
+            git pull
+            git push
+        popd
+    end
+    #
     # Create a new Python 3 virtual environment
     #
     # Usage:
@@ -61,4 +85,3 @@ if status is-interactive
 end
 
 test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
-

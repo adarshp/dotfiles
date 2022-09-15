@@ -147,3 +147,4 @@ latest_citation_to_bibtex() {
 activate_macports
 
 source /Users/adarsh/.config/broot/launcher/bash/br
+. "$HOME/.cargo/env"

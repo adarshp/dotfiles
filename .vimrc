@@ -9,6 +9,7 @@ endif
 call plug#begin('~/.vim/plugged')
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
+Plug 'dag/vim-fish'
 Plug 'vim-python/python-syntax', { 'for': 'python' }
 Plug 'vimwiki/vimwiki'
 Plug 'nvie/vim-flake8', { 'for': 'python' }
@@ -16,7 +17,7 @@ Plug 'vimwiki/vimwiki'
 Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
 Plug 'tell-k/vim-autoflake', { 'for': 'python' }
 Plug 'lervag/vimtex', { 'for': 'tex' }
-"Plug 'vim-latex/vim-latex', { 'for': 'tex' }
+Plug 'rust-lang/rust.vim'
 Plug 'junegunn/seoul256.vim'
 Plug 'altercation/vim-colors-solarized'
 Plug 'junegunn/Goyo.vim'
@@ -44,10 +45,10 @@ call plug#end()
 set nocompatible
 syntax enable
 " set Vim-specific sequences for RGB colors
-set termguicolors
+"set termguicolors
 " set Vim-specific sequences for RGB colors
-let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+"let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+"let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 set background=dark
 colorscheme seoul256
@@ -137,26 +138,6 @@ let g:neoformat_cs_uncrustify = {
 " Remapping keys for easier navigation when word wrapping is on
 nnoremap j gj
 nnoremap k gk
-
-" Custom mappings for latex-suite
-"augroup MyTeXIMAPs
-
-         "au VimEnter * if &filetype == "tex" | imap <Leader>b <Plug>Tex_MathBF| endif
-         "au VimEnter * if &filetype == "tex" | imap <Leader>c <Plug>Tex_MathCal| endif
-         "au VimEnter * if &filetype == "tex" | imap <Leader>l <Plug>Tex_LeftRight| endif
-         "au VimEnter * if &filetype == "tex" | imap <Leader>i <Plug>Tex_InsertItemOnThisLine| endif
-         "au VimEnter * if &filetype == "tex" | imap <Leader>u <Plug>Tex_InsertItemOnThisLine| endif
-         "au VimEnter * if &filetype == "tex" | imap <Leader>y <Plug>Tex_InsertItemOnNextLine| endif
-         "" Note that <C-CR> is mapped to Tex_InsertItemOnNextLine
-
-         "au VimEnter * if &filetype == "tex" | imap <C-b> <Plug>Tex_MathBF| endif
-         "au VimEnter * if &filetype == "tex" | imap <C-c> <Plug>Tex_MathCal| endif
-         "au VimEnter * if &filetype == "tex" | imap <C-l> <Plug>Tex_LeftRight| endif
-         "au VimEnter * if &filetype == "tex" | imap <C-u> <Plug>Tex_InsertItemOnThisLine| endif
-         "au VimEnter * if &filetype == "tex" | imap <C-y> <Plug>Tex_InsertItemOnNextLine| endif
-         "au VimEnter * if &filetype == "tex" | imap <A-u> <Plug>Tex_InsertItemOnThisLine| endif
-         "au VimEnter * if &filetype == "tex" | imap <A-y> <Plug>Tex_InsertItemOnNextLine| endif
-"augroup END
 
 " ==============================
 " Vimwiki-related configuration
