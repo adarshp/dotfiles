@@ -8,10 +8,50 @@ if status is-interactive
     set -x PATH "/opt/local/bin:/opt/local/sbin:$PATH"
     # Finished adapting your PATH environment variable for use with MacPorts.
 
+    # Add path for Rust and Cargo installed by Rustup
+    set -x PATH "$HOME/.cargo/bin:$PATH"
+
     set -x EDITOR vim
-    alias vw 'cd ~/git/adarshp/src && vim -c VimwikiIndex'
+
+    # Make a nice one-letter alias for vim
+    alias v 'vim'
+
+    # Open the Vimwiki index
+    alias vw 'vim -c VimwikiIndex'
+
+    # Open today's Vimwiki diary entry
+    alias vd 'vim -c VimwikiMakeDiaryNote'
+
+    # Open ~/.vimrc in vim
     alias vimrc 'vim ~/.vimrc'
+
+    # Aliases for faster git
     alias gst 'git status'
+    alias gp 'git push'
+
+    # Alias 'ls' to 'lsd'
+    alias ls 'lsd'
+
+    # Sync adarshp/dotfiles repo
+    function sync_dotfiles
+        pushd ~/git/adarshp/dotfiles
+            git add .
+            git commit -m "Adding latest dotfile changes"
+            git pull
+            git push
+        popd
+    end
+
+
+    # Sync adarshp/src repo
+    function sync_src
+        pushd ~/git/adarshp/src
+            git add .
+            git commit -m "Syncing src repo"
+            git pull
+            git push
+        popd
+    end
 
     # Create a new Python 3 virtual environment
     #
@@ -56,4 +96,3 @@ if status is-interactive
 end
 
 test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
-
