@@ -11,12 +11,12 @@ Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'vim-python/python-syntax', { 'for': 'python' }
 Plug 'vimwiki/vimwiki'
+Plug 'dag/vim-fish'
 Plug 'nvie/vim-flake8', { 'for': 'python' }
 Plug 'vimwiki/vimwiki'
 Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
 Plug 'tell-k/vim-autoflake', { 'for': 'python' }
 Plug 'lervag/vimtex', { 'for': 'tex' }
-"Plug 'vim-latex/vim-latex', { 'for': 'tex' }
 Plug 'junegunn/seoul256.vim'
 Plug 'altercation/vim-colors-solarized'
 Plug 'junegunn/Goyo.vim'
@@ -31,8 +31,6 @@ Plug 'sbdchd/neoformat'
 Plug 'ryanoasis/vim-devicons'
 Plug 'bfrg/vim-cpp-modern'
 Plug 'JuliaEditorSupport/julia-vim'
-"Plug 'kovisoft/slimv'
-"Plug 'PontusPersson/pddl.vim'
 Plug 'vim-scripts/applescript.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -43,16 +41,13 @@ call plug#end()
 
 set nocompatible
 syntax enable
-" set Vim-specific sequences for RGB colors
 set termguicolors
-" set Vim-specific sequences for RGB colors
-let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 set background=dark
+let g:seoul256_background = 235
 colorscheme seoul256
 
-"highlight Comment cterm=italic
+highlight Comment cterm=italic
 set number
 
 " Easier split navigations
@@ -162,6 +157,7 @@ nnoremap k gk
 " Vimwiki-related configuration
 " ==============================
 
+" Vimwiki index
 let g:vimwiki_list = [{
     \ 'path': '~/git/adarshp/src/wiki/',
     \ 'path_html': '~/git/adarshp/src/wiki/public_html/',
