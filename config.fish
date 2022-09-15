@@ -13,14 +13,14 @@ if status is-interactive
 
     set -x EDITOR vim
 
-    # Make a nice one-letter alias for vi
-    alias v 'vi'
+    # Make a nice one-letter alias for vim
+    alias v 'vim'
 
     # Open the Vimwiki index
-    alias vw 'cd ~/git/adarshp/src && vim -c VimwikiIndex'
+    alias vw 'vim -c VimwikiIndex'
 
     # Open today's Vimwiki diary entry
-    alias vd 'cd ~/git/adarshp/src && vim -c VimwikiMakeDiaryNote'
+    alias vd 'vim -c VimwikiMakeDiaryNote'
 
     # Open ~/.vimrc in vim
     alias vimrc 'vim ~/.vimrc'
@@ -32,8 +32,8 @@ if status is-interactive
     # Alias 'ls' to 'lsd'
     alias ls 'lsd'
 
-    # Push dotfile changes
-    function update_dotfiles
+    # Sync adarshp/dotfiles repo
+    function sync_dotfiles
         pushd ~/git/adarshp/dotfiles
             git add .
             git commit -m "Adding latest dotfile changes"
@@ -41,7 +41,18 @@ if status is-interactive
             git push
         popd
     end
-    #
+
+
+    # Sync adarshp/src repo
+    function sync_src
+        pushd ~/git/adarshp/src
+            git add .
+            git commit -m "Syncing src repo"
+            git pull
+            git push
+        popd
+    end
+
     # Create a new Python 3 virtual environment
     #
     # Usage:
