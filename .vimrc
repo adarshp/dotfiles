@@ -44,9 +44,9 @@ call plug#end()
 set nocompatible
 syntax enable
 
-"set background=dark
-"let g:seoul256_background = 235
-"colorscheme seoul256
+set background=dark
+let g:seoul256_background = 235
+colorscheme seoul256
 
 highlight Comment cterm=italic
 set number
