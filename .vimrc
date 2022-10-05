@@ -36,7 +36,7 @@ Plug 'JuliaEditorSupport/julia-vim'
 Plug 'vim-scripts/applescript.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'vim-syntastic/syntastic'
+Plug 'dense-analysis/ale'
 Plug 'leafgarland/typescript-vim'
 call plug#end()
 
@@ -44,9 +44,9 @@ call plug#end()
 set nocompatible
 syntax enable
 
-set background=dark
-let g:seoul256_background = 235
-colorscheme seoul256
+"set background=dark
+"let g:seoul256_background = 235
+"colorscheme seoul256
 
 highlight Comment cterm=italic
 set number
@@ -88,6 +88,7 @@ set encoding=utf-8
 let g:airline_theme='bubblegum'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#ale#enabled = 1
 
 " Digraphs
 
@@ -146,3 +147,21 @@ let g:vimwiki_list = [{
     \ 'auto_toc': 1,
     \ 'auto_tags': 1
     \}]
+
+
+" ALE
+let g:ale_linters = {'rust': ['analyzer']}
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'javascript': ['eslint'],
+\   'rust': ['rustfmt'],
+\}
+
+" Shortcut for ALEHover
+nmap K :ALEHover<CR>
+
+" Fix files upon saving
+let g:ale_fix_on_save = 1
+let g:ale_hover_cursor=1
+let g:ale_hover_to_floating_preview=1
+let g:ale_rust_analyzer_executable='/Users/adarsh/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rust-analyzer'
