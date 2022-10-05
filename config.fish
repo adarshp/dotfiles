@@ -27,7 +27,8 @@ if status is-interactive
 
     # Aliases for faster git
     alias gst 'git status'
-    alias gp 'git push'
+    alias gpush 'git push'
+    alias gpull 'git pull'
 
     # Alias 'ls' to 'lsd'
     alias ls 'lsd'
