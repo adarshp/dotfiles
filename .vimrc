@@ -15,9 +15,7 @@ Plug 'plasticboy/vim-markdown'
 Plug 'dag/vim-fish'
 Plug 'vim-python/python-syntax', { 'for': 'python' }
 Plug 'vimwiki/vimwiki'
-Plug 'dag/vim-fish'
 Plug 'nvie/vim-flake8', { 'for': 'python' }
-Plug 'vimwiki/vimwiki'
 Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
 Plug 'tell-k/vim-autoflake', { 'for': 'python' }
 Plug 'lervag/vimtex', { 'for': 'tex' }
@@ -173,4 +171,4 @@ highlight Pmenu guibg=#000000
 let g:ale_fix_on_save = 1
 let g:ale_hover_cursor=1
 let g:ale_hover_to_floating_preview=1
-let g:ale_rust_analyzer_executable='/Users/adarsh/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rust-analyzer'
+let g:ale_rust_analyzer_executable='/Users/adarsh/.rustup/toolchains/stable-x86_64-apple-darwin/bin/rust-analyzer'
