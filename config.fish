@@ -1,20 +1,51 @@
 if status is-interactive
     # Commands to run in interactive sessions can go here
 
-    # TEXINPUTS
-    set -x TEXINPUTS "~/git/adarshp/src/texinputs:~/ivilab/texinputs:$TEXINPUTS"
+    switch (uname)
+        case Darwin
+            # MacPorts path
+            set -x PATH "/opt/local/bin:/opt/local/sbin:$PATH"
 
-    # MacPorts path
-    set -x PATH "/opt/local/bin:/opt/local/sbin:$PATH"
-    # Finished adapting your PATH environment variable for use with MacPorts.
+            echo "Operating system implementation: Darwin"
+            # Enable fzf keybindings
+            source /opt/local/share/fzf/shell/key-bindings.fish
+
+            # Alias 'ls' to 'lsd'
+            alias ls 'lsd'
+
+            # Usage: activate_py <major_version><minor_version>
+            # Example:
+            #
+            #    activate_py 310
+            #
+            # will activate Python 3.10
+            function activate_py
+                set -l major_version (echo $argv[1] | cut -c 1)
+                set -l minor_version (echo $argv[1] | cut -d "$major_version" -f2)
+                sudo port select --set python python"$argv[1]"
+                sudo port select --set python"$major_version" python"$argv[1]"
+                sudo port select --set pip pip"$argv[1]"
+                sudo port select --set pip"$major_version" pip"$argv[1]"
+            end
+
+        # Java config for CLULab software
+        set -x JAVA_HOME "/Library/Java/JavaVirtualMachines/openjdk8-zulu/Contents/Home"
+        set -x JAVA_OPTS "-Xmx50g"
+
+    end
+
+
+    # TEXINPUTS
+    set -x TEXINPUTS "~/git/adarshp/personal/texinputs:~/ivilab/texinputs:$TEXINPUTS"
+
+    # Path to personal scripts
+    set -x PATH "/Users/adarsh/git/adarshp/personal/scripts:$PATH"
 
     # Add path for Rust and Cargo installed by Rustup
     set -x PATH "$HOME/.cargo/bin:$PATH"
 
+    # Set default editor to vim
     set -x EDITOR vim
-
-    # Make a nice one-letter alias for vim
-    alias v 'vim'
 
     # Open the Vimwiki index
     alias vw 'vim -c VimwikiIndex'
@@ -25,13 +56,20 @@ if status is-interactive
     # Open ~/.vimrc in vim
     alias vimrc 'vim ~/.vimrc'
 
+    # Open fish config file in vim
+    alias fishrc 'vim ~/.config/fish/config.fish'
+
     # Aliases for faster git
     alias gst 'git status'
     alias gpush 'git push'
     alias gpull 'git pull'
 
-    # Alias 'ls' to 'lsd'
-    alias ls 'lsd'
+
+    # Aliases for projects
+    alias agent 'cd ~/git/aptima/adminless-testbed/Agents/AC_UAZ_TA1_DialogAgent'
+    alias coord 'cd ~/git/ml4ai/papers; git checkout coordination; cd 2023-NeurIPS-ToMCAT-Coordination'
+    alias dataset 'cd ~/git/ml4ai/papers; git checkout neurips-2023; cd 2023-NeurIPS-ToMCAT-Dataset'
+    alias multicat 'cd ~/git/ml4ai/papers; git checkout multicat; cd 2023_EMNLP_MultiCAT'
 
     # Sync adarshp/dotfiles repo
     function sync_dotfiles
@@ -75,20 +113,6 @@ if status is-interactive
         end
     end
 
-    # Usage: activate_py <major_version><minor_version>
-    # Example:
-    #
-    #    activate_py 310
-    #
-    # will activate Python 3.10
-    function activate_py
-        set -l major_version (echo $argv[1] | cut -c 1)
-        set -l minor_version (echo $argv[1] | cut -d "$major_version" -f2)
-        sudo port select --set python python"$argv[1]"
-        sudo port select --set python"$major_version" python"$argv[1]"
-        sudo port select --set pip pip"$argv[1]"
-        sudo port select --set pip"$major_version" pip"$argv[1]"
-    end
 
     # Activate a Python virtual environment
     function activate
@@ -97,3 +121,6 @@ if status is-interactive
 end
 
 test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
+
+#set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME ; set -gx PATH $HOME/.cabal/bin /Users/adarsh/.ghcup/bin $PATH # ghcup-env
+set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME ; set -gx PATH $HOME/.cabal/bin /Users/adarsh/.ghcup/bin $PATH # ghcup-env
