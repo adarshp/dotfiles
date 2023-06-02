@@ -6,7 +6,6 @@ if status is-interactive
             # MacPorts path
             set -x PATH "/opt/local/bin:/opt/local/sbin:$PATH"
 
-            echo "Operating system implementation: Darwin"
             # Enable fzf keybindings
             source /opt/local/share/fzf/shell/key-bindings.fish
 
