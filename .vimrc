@@ -1,5 +1,8 @@
 " Download vim-plug if it isn't installed yet.
 
+" Enable fzf
+set rtp+=/opt/local/share/fzf/vim
+
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -18,6 +21,7 @@ Plug 'tell-k/vim-autoflake', { 'for': 'python' }
 Plug 'lervag/vimtex', { 'for': 'tex' }
 Plug 'rust-lang/rust.vim'
 Plug 'junegunn/seoul256.vim'
+Plug 'arcticicestudio/nord-vim'
 Plug 'altercation/vim-colors-solarized'
 Plug 'junegunn/Goyo.vim'
 Plug 'morhetz/gruvbox'
@@ -43,8 +47,8 @@ set nocompatible
 syntax enable
 
 set background=dark
-let g:seoul256_background = 235
-colorscheme seoul256
+"let g:seoul256_background = 235
+colorscheme gruvbox
 
 highlight Comment cterm=italic
 set number
@@ -74,7 +78,7 @@ autocmd BufRead,BufNewFile *.yaml set shiftwidth=2 tabstop=2
 autocmd BufRead,BufNewFile *.cpp set foldmethod=syntax
 autocmd BufRead,BufNewFile *.ts set filetype=typescript
 autocmd BufRead,BufNewFile *.wiki set shiftwidth=2
-autocmd BufRead,BufNewFile *.cls set filetype=tex
+autocmd BufRead,BufNewFile *.cls, *.tex set filetype=tex
 
 " Remove trailing whitespace on each write for certain filetypes
 autocmd FileType c,cpp,java,php,sh,markdown,vimwiki,rst autocmd BufWritePre <buffer> %s/\s\+$//e
@@ -154,10 +158,14 @@ let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'javascript': ['eslint'],
 \   'rust': ['rustfmt'],
+\   'scala': ['scalafmt'],
 \}
 
 " Shortcut for ALEHover
 nmap K :ALEHover<CR>
+
+" Fix ALE box background color
+highlight Pmenu guibg=#000000
 
 " Fix files upon saving
 let g:ale_fix_on_save = 1
