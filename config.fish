@@ -1,6 +1,12 @@
 if status is-interactive
     # Commands to run in interactive sessions can go here
 
+    # JAVA_HOME
+    set -x JAVA_HOME "/Library/Java/JavaVirtualMachines/openjdk8/Contents/Home"
+
+    # Set memory for large NLP models
+    set -x JAVA_OPTS -Xmx62g
+
     # TEXINPUTS
     set -x TEXINPUTS "~/git/adarshp/src/texinputs:~/ivilab/texinputs:$TEXINPUTS"
 
@@ -12,6 +18,10 @@ if status is-interactive
     set -x PATH "$HOME/.cargo/bin:$PATH"
 
     set -x EDITOR vim
+
+    # =======
+    # Aliases
+    # =======
 
     # Make a nice one-letter alias for vim
     alias v 'vim'
@@ -33,6 +43,11 @@ if status is-interactive
     # Alias 'ls' to 'lsd'
     alias ls 'lsd'
 
+    alias agent 'cd ~/git/aptima/adminless-testbed/Agents/AC_UAZ_TA1_DialogAgent'
+    alias multicat 'cd ~/git/ml4ai/papers; git checkout multicat; cd 2023_EMNLP_MultiCAT'
+
+    # ============================
+
     # Sync adarshp/dotfiles repo
     function sync_dotfiles
         pushd ~/git/adarshp/dotfiles
@@ -46,7 +61,7 @@ if status is-interactive
 
     # Sync adarshp/src repo
     function sync_src
-        pushd ~/git/adarshp/src
+        pushd ~/git/adarshp/personal
             git add .
             git commit -m "Syncing src repo"
             git pull

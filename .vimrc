@@ -69,6 +69,7 @@ set textwidth=79
 autocmd BufRead,BufNewFile *.pddl set filetype=lisp
 autocmd BufRead,BufNewFile *.md set filetype=markdown
 autocmd BufRead,BufNewFile *.json set foldmethod=indent
+autocmd BufRead,BufNewFile *.rs set foldmethod=indent
 autocmd BufRead,BufNewFile *.yaml set shiftwidth=2 tabstop=2
 autocmd BufRead,BufNewFile *.cpp set foldmethod=syntax
 autocmd BufRead,BufNewFile *.ts set filetype=typescript
