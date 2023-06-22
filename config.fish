@@ -117,6 +117,9 @@ if status is-interactive
         end
     end
 
+    # PyEnv support
+    pyenv init - | source
+    status --is-interactive; and pyenv virtualenv-init - | source
 
     # Activate a Python virtual environment
     function activate
